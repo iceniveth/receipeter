@@ -50,5 +50,8 @@
       "binding": "BUCKET",
       "bucket_name": "receipeter"
     }
-  ]
+  ],
+  "ai": {
+    "binding": "AI"
+  }
 }
