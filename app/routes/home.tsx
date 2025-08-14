@@ -1,5 +1,6 @@
+import extractImageContent from "~/lib/extractImageContent";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Form, useNavigation } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,10 +9,73 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export function loader({ context }: Route.LoaderArgs) {
-  return { message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE };
+export async function action({ context, request }: Route.ActionArgs) {
+  const formData = await request.formData();
+  const file = formData.get("file") as File;
+
+  if (!file) {
+    return null;
+  }
+
+  await context.cloudflare.env.BUCKET.put(file.name, file);
+  const object = await context.cloudflare.env.BUCKET.get(file.name);
+
+  const aiResponse = object
+    ? await extractImageContent(context.cloudflare.env.AI, object)
+    : null;
+
+  return {
+    object,
+    aiResponse,
+  };
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.message} />;
+export async function loader({ context }: Route.LoaderArgs) {
+  return {
+    message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE,
+  };
+}
+
+export default function Home({ actionData }: Route.ComponentProps) {
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+
+  return (
+    <>
+      <div className="w-100 m-auto my-4">
+        {actionData?.object && (
+          <img src={`/uploads?key=${actionData.object.key}`} />
+        )}
+
+        {actionData?.aiResponse && (
+          <>
+            {actionData?.aiResponse.isReceipt ? (
+              <p>is a receipt</p>
+            ) : (
+              <p>is not a receipt</p>
+            )}
+
+            <ul>
+              <li>Date: {actionData?.aiResponse.data?.date}</li>
+              <li>Category: {actionData?.aiResponse.data?.category}</li>
+              <li>Total: {actionData?.aiResponse.data?.total}</li>
+            </ul>
+          </>
+        )}
+
+        <Form method="POST" encType="multipart/form-data">
+          <div className="flex flex-col">
+            <input type="file" name="file" />
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              {isSubmitting ? "Uploading..." : "Upload"}
+            </button>
+          </div>
+        </Form>
+      </div>
+    </>
+  );
 }
