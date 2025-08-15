@@ -16,6 +16,7 @@
     "publish": true
   },
   "dependencies": {
+    "daisyui": "^5.0.50",
     "isbot": "5.1.26",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -24,12 +25,12 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.7.5",
     "@react-router/dev": "7.6.3",
-    "@tailwindcss/vite": "4.1.4",
+    "@tailwindcss/vite": "^4.1.12",
     "@types/node": "^24.0.4",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "prettier": "3.6.2",
-    "tailwindcss": "4.1.1",
+    "tailwindcss": "^4.1.12",
     "typescript": "5.8.3",
     "vite": "^6.0.0",
     "vite-plugin-devtools-json": "^0.4.1",
