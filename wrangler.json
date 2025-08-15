@@ -53,5 +53,13 @@
   ],
   "ai": {
     "binding": "AI"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "receipeter-db",
+      "database_id": "5bb5f7d8-996b-41fc-9a96-e262e60fd0a2",
+      "migrations_dir": "drizzle/migrations"
+    }
+  ]
 }

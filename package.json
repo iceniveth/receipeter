@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "daisyui": "^5.0.50",
+    "drizzle-orm": "^0.44.4",
     "isbot": "5.1.26",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -29,6 +30,7 @@
     "@types/node": "^24.0.4",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "drizzle-kit": "^0.31.4",
     "prettier": "3.6.2",
     "tailwindcss": "^4.1.12",
     "typescript": "5.8.3",
