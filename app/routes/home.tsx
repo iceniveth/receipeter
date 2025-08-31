@@ -1,6 +1,7 @@
 import extractImageContent from "~/lib/extractImageContent";
 import type { Route } from "./+types/home";
 import { Form, useNavigation } from "react-router";
+import doSomethingFromVertexAI from "~/lib/vertex";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -31,6 +32,8 @@ export async function action({ context, request }: Route.ActionArgs) {
 }
 
 export async function loader({ context }: Route.LoaderArgs) {
+  await doSomethingFromVertexAI(context.cloudflare.env.GCP_API_KEY);
+
   return {
     message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE,
   };

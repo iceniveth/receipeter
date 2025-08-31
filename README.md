@@ -34,6 +34,19 @@ A live public deployment of this template is available at [https://react-router-
 
 Install the dependencies:
 
+For GCloud:
+
+```bash
+# Create volumes for both config and application default credentials
+docker volume create gcloud-config
+
+# Run the login command
+docker run -it --rm \
+  -v gcloud-config:/root/.config/gcloud \
+  gcr.io/google.com/cloudsdktool/google-cloud-cli:latest \
+  gcloud auth application-default login
+```
+
 ```bash
 npm install
 ```

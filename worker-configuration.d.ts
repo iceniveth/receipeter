@@ -5,6 +5,7 @@ declare namespace Cloudflare {
   interface Env {
     AI: Ai;
     BUCKET: R2Bucket;
+    GCP_API_KEY: string;
     VALUE_FROM_CLOUDFLARE: "Hello from Cloudflare";
   }
 }

@@ -16,6 +16,7 @@
     "publish": true
   },
   "dependencies": {
+    "@google/genai": "^1.15.0",
     "daisyui": "^5.0.50",
     "isbot": "5.1.26",
     "react": "^19.0.0",
