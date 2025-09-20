@@ -8,6 +8,7 @@ export default async function extractImageContent(
   const response = await AI.run(
     "@cf/google/gemma-3-12b-it",
     {
+      temperature: 0,
       messages: [
         {
           role: "system",
@@ -37,7 +38,7 @@ You are an expert at understanding receipts.
         },
       ],
     },
-    // { gateway: { id: "receipeter-ai-gateway" } },
+    { gateway: { id: "receipeter-ai-gateway" } },
   );
 
   console.log(response.response);

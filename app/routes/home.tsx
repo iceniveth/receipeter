@@ -64,14 +64,27 @@ export default function Home({ actionData }: Route.ComponentProps) {
         )}
 
         <Form method="POST" encType="multipart/form-data">
-          <div className="flex flex-col">
-            <input type="file" name="file" />
+          <div className="flex flex-col gap-4">
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Upload Receipt</legend>
+              <input
+                type="file"
+                name="file"
+                className="file-input file-input-bordered file-input-primary w-full"
+                required
+              />
+              <label className="label text-sm opacity-70">
+                Select an image of your receipt to analyze
+              </label>
+            </fieldset>
             <button
               type="submit"
-              disabled={isSubmitting}
               className="btn btn-primary"
+              disabled={isSubmitting}
+              aria-disabled={isSubmitting}
             >
-              {isSubmitting ? "Uploading..." : "Upload"}
+              {isSubmitting && <span className="loading loading-spinner" />}
+              Upload
             </button>
           </div>
         </Form>
