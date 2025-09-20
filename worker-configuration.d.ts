@@ -5,6 +5,7 @@ declare namespace Cloudflare {
   interface Env {
     AI: Ai;
     BUCKET: R2Bucket;
+    DB: D1Database;
     VALUE_FROM_CLOUDFLARE: "Hello from Cloudflare";
   }
 }
